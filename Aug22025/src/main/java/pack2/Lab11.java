@@ -5,7 +5,7 @@ package pack2;
 	import java.sql.PreparedStatement;
 	import java.sql.SQLException;
 	
-	public class Jdbc {
+	public class Lab11 {
 		
 	
 		public static void main(String[] args) {
