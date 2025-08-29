@@ -1,4 +1,4 @@
-package pack2;
+/*package pack2;
 
 
 	import java.util.Scanner;
@@ -9,7 +9,7 @@ package pack2;
 	public class Lab24 {
 	    public static void main(String[] args) {
 	        Scanner sc = new Scanner(System.in);
-	        EmployeeServiceImpl service = new EmployeeServiceImpl();
+	        EmployeeService service = new EmployeeService();
 
 	        System.out.print("Enter Employee ID: ");
 	        int id = sc.nextInt();
@@ -34,7 +34,7 @@ package pack2;
 	        
 	        service.showEmployeeDetails(emp);
 	    }
-	}
+	}*/
 	
 
 

@@ -1,18 +1,11 @@
 package com.orangehrm.utility;
 
-import org.openqa.selenium.chrome.ChromeDriver;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 public class ExtentManager {
     private static ExtentReports extent;
     static String projectPath = System.getProperty("user.dir");
-    public void navigateurl(String url)
-	{
-		 ChromeDriver chromeDriver = new ChromeDriver();
-		 chromeDriver.get(url);
-	}
 
     public static ExtentReports getinstance() {
         if (extent == null) {
@@ -21,8 +14,6 @@ public class ExtentManager {
             extent = new ExtentReports();
             extent.attachReporter(spark);
         }
-       
         return extent;
     }
-    
 }

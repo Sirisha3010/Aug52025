@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
-  <test thread-count="5" name="Test1(failed)">
+<suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.orangehrm.tests.LoginOrangeHRM">
+      <class name="com.orangehrm.base.BaseTest">
         <methods>
-          <include name="loginTest" invocation-numbers="0 1"/>
+          <include name="question3_amazonSearch"/>
+          <include name="question4_handleDropdown"/>
           <include name="teardown"/>
           <include name="setupReport"/>
           <include name="setup"/>
           <include name="flushReport"/>
         </methods>
-      </class> <!-- com.orangehrm.tests.LoginOrangeHRM -->
+      </class> <!-- com.orangehrm.base.BaseTest -->
     </classes>
-  </test> <!-- Test1(failed) -->
-</suite> <!-- Failed suite [Suite] -->
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

@@ -1,52 +1,82 @@
 package com.orangehrm.pages;
 
+
+
+import java.io.File;
 import java.io.IOException;
 
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-import org.testng.Assert;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
-import com.orangehrm.base.BaseTest;
-import com.orangehrm.pages.Login_PageFactory;
-import com.orangehrm.utility.ExcelUtiles;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-public class LoginOrangeHRM extends BaseTest {
+public class LoginPage {
 
-    Login_PageFactory loginPage;
+	
+	WebDriver driver;
+	By uname;
+	By pword;
+	By loginbutton;
+	String projectpath=System.getProperty("user.dir");
+	public LoginPage(WebDriver driver2) throws ParserConfigurationException, SAXException, IOException {
+		// TODO Auto-generated constructor stub
+			this.driver=driver2;
+	
 
-    // Excel file path and sheet name
-    String excelPath = System.getProperty("user.dir") + "\\src\\test\\resources\\Testdata\\data.xlsx";
-    String sheetName = "Sheet1"; // update if your sheet name is different
+	
+	File file = new File(projectpath+"\\data1.xml");
 
-    @DataProvider(name = "loginData")
-    public Object[][] getData() throws IOException {
-        return ExcelUtiles.getdata(excelPath, sheetName);
-    }
+	 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 
-    @Test(dataProvider = "loginData")
-    public void loginTest(String username, String password) {
-        // Initialize page object
-        loginPage = new Login_PageFactory(driver);
+	 Document d1= dBuilder.parse(file);
+	// d1.getDocumentElement().normalize();
+	 
+	// System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
 
-        // Debug print
-        System.out.println("Trying login with -> Username: " + username + ", Password: " + password);
+	 NodeList nList = d1.getElementsByTagName("user");
 
-        // Enter credentials and click login
-        loginPage.enterUsername(username);
-        loginPage.enterPassword(password);
-        loginPage.clickLogin();
+	 for (int i = 0; i < nList.getLength(); i++) {
+		 
+	     Node node = nList.item(i);
 
-        // Small wait for page load
-        try {
-            Thread.sleep(2000); // optional: replace with WebDriverWait
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+	     if (node.getNodeType() == Node.ELEMENT_NODE) {
+	         Element element = (Element) node;
 
-        // Assertion: check page title after login
-        String expectedTitle = "OrangeHRM"; // replace with your actual post-login title
-        String actualTitle = driver.getTitle();
-
-        Assert.assertEquals(actualTitle, expectedTitle, "Login failed: Title mismatch!");
-    }
+	     String    uname1  = element.getElementsByTagName("usertag").item(0).getTextContent();
+	     String    pword1= element.getElementsByTagName("passtag").item(0).getTextContent();
+	     String   loginbutton1= element.getElementsByTagName("continuetag").item(0).getTextContent();
+	    
+	 
+	uname=By.name(uname1);
+	 pword=By.name(pword1);
+	loginbutton=By.xpath(loginbutton1);
+	
+	 }
+	     }
+	}
+	 
+	public void enterusername(String username)
+	{
+		driver.findElement(uname).sendKeys(username);
+	}
+	
+	
+	public void enterpassword(String password)
+	{
+		driver.findElement(pword).sendKeys(password);
+	}
+	
+	
+	public void clickonlogin()
+	{
+		driver.findElement(loginbutton).click();
+}
 }
